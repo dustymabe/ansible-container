@@ -1,4 +1,2 @@
-ansible-container:
-  image: tianon/true
-  command: /bin/false
+version: "2"
 {{ config }}

@@ -262,7 +262,7 @@ class Engine(BaseEngine):
             u'--project-name': 'ansible'
         })
         command_options = self.DEFAULT_COMPOSE_UP_OPTIONS.copy()
-        command_options[u'--no-build'] = True
+        #command_options[u'--no-build'] = True
         command_options[u'SERVICE'] = hosts
         command_options.update(extra_options)
         project = project_from_options(self.base_path, options)
@@ -356,7 +356,8 @@ class Engine(BaseEngine):
                 )
             )
             self._fix_volumes(service, service_config)
-        return compose_config
+        #return compose_config
+        return { 'services': compose_config }
 
     def get_config_for_listhosts(self):
         compose_config = config_to_compose(self.config)

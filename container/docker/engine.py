@@ -350,11 +350,11 @@ class Engine(BaseEngine):
             self.config.set_env('dev')
         compose_config = config_to_compose(self.config)
         for service, service_config in compose_config.items():
-            service_config.update(
-                dict(
-                    image='%s-%s:latest' % (self.project_name, service)
-                )
-            )
+           #service_config.update(
+           #    dict(
+           #        image='%s-%s:latest' % (self.project_name, service)
+           #    )
+           #)
             self._fix_volumes(service, service_config)
         #return compose_config
         return { 'services': compose_config }

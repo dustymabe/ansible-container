@@ -264,6 +264,8 @@ class Engine(BaseEngine):
         command_options = self.DEFAULT_COMPOSE_UP_OPTIONS.copy()
         #command_options[u'--no-build'] = True
         command_options[u'--build'] = True
+        if os.environ.get('DETACH'):
+            command_options[u'-d'] = True
         command_options[u'SERVICE'] = hosts
         command_options.update(extra_options)
         project = project_from_options(self.base_path, options)

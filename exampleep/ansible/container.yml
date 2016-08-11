@@ -1,0 +1,25 @@
+version: "1"
+services:
+  wordpress:
+    image: centos:7
+    expose:
+      - "9001"
+#   links:
+#     - db
+    user: 'root'
+    command: ['/bin/bash', '/scripts/start.sh']
+ #db:
+ #  image: centos/mariadb:latest
+ #  user: 'root'
+ #  expose:
+ #    - "3306"
+##  volumes:
+##    - '/var/lib/mysql'
+ #  environment:
+ #    MYSQL_USER: 'du'
+ #    MYSQL_PASSWORD: 'dp'
+ #    MYSQL_DATABASE: 'db'
+ #    MYSQL_ROOT_PASSWORD: 'rp'
+
+registries: {}
+

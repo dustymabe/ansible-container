@@ -278,9 +278,14 @@ def cmdrun_build(base_path, engine_name, flatten=True, purge_last=True, local_bu
     with make_temp_dir() as temp_dir:
         logger.info('Starting %s engine to build your images...'
                     % engine_obj.orchestrator_name)
+        logger.info('YYY starting build')
+        logger.info('YYY starting build')
         touched_hosts = engine_obj.hosts_touched_by_playbook()
+        logger.info('YYY touched hosts: %s' % touched_hosts)
         engine_obj.orchestrate('build', temp_dir, context=dict(rebuild=rebuild))
+        logger.info('YYY done build')
         if not engine_obj.build_was_successful():
+            logger.info('YYY In If')
             logger.error('Ansible playbook run failed.')
             logger.info('Cleaning up Ansible Container builder...')
             builder_container_id = engine_obj.get_builder_container_id()

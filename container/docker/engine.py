@@ -64,19 +64,26 @@ class Engine(BaseEngine):
         """
         if not self._orchestrated_hosts:
             with teed_stdout() as stdout, make_temp_dir() as temp_dir:
+                logger.info('ZZZ bcin:%s' % self.builder_container_img_name)
                 self.orchestrate('listhosts', temp_dir,
                                  hosts=[self.builder_container_img_name])
+                logger.info('ZZZ HERE1')
                 logger.info('Cleaning up Ansible Container builder...')
+                logger.info('ZZZ HERE2')
                 builder_container_id = self.get_builder_container_id()
+                logger.info('ZZZ HERE3')
                 self.remove_container_by_id(builder_container_id)
+                logger.info('ZZZ HERE4')
                 # We need to cleverly extract the host names from the output...
                 logger.debug('--list-hosts\n%s', stdout.getvalue())
+                logger.info('ZZZ HERE5')
                 lines = stdout.getvalue().split('\r\n')
                 lines_minus_builder_host = [line.rsplit('|', 1)[1] for line
                                             in lines if '|' in line]
                 host_lines = [line for line in lines_minus_builder_host
                               if line.startswith('       ')]
                 self._orchestrated_hosts = list(set([line.strip() for line in host_lines]))
+                logger.info('ZZZ HERE5')
         return self._orchestrated_hosts
 
     def build_buildcontainer_image(self):
@@ -295,9 +302,13 @@ class Engine(BaseEngine):
             image_version = '.'.join(release_version.split('.')[:2])
             builder_img_id = 'ansible/%s:%s' % (self.builder_container_img_tag,
                                                 image_version)
+        logger.info('XXX OPERATION %s ' % operation)
+        logger.info('XXX HOSTS %s ' % hosts)
+        logger.info('XXX HERE1')
         extra_options = getattr(self, 'orchestrate_%s_extra_args' % operation)()
         config = getattr(self, 'get_config_for_%s' % operation)()
         logger.debug('%s' % (config,))
+        logger.info('XXX HERE2')
         config_yaml = yaml_dump(config)
         logger.debug('Config YAML is')
         logger.debug(config_yaml)
@@ -326,12 +337,17 @@ class Engine(BaseEngine):
         command_options = self.DEFAULT_COMPOSE_UP_OPTIONS.copy()
         command_options[u'--no-build'] = True
         command_options[u'SERVICE'] = hosts
+        logger.info('XXX HERE3')
         if locals().get('is_detached'):
             logger.info('Deploying application in detached mode')
             command_options[u'-d'] = True
+        logger.info('XXX HERE4')
         command_options.update(extra_options)
         project = project_from_options(self.base_path, options)
+        logger.info(command_options)
+        logger.info('XXX HERE5')
         command = main.TopLevelCommand(project)
+        logger.info('XXX HERE6')
         command.up(command_options)
 
     def orchestrate_build_extra_args(self):

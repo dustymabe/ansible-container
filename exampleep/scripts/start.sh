@@ -21,14 +21,14 @@ printf "Creating wp-config.php...\n"
 sed -e "s/database_name_here/$DB_ENV_MYSQL_DATABASE/
 s/username_here/$DB_ENV_MYSQL_USER/
 s/password_here/$DB_ENV_MYSQL_PASSWORD/
-/'AUTH_KEY'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'SECURE_AUTH_KEY'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'LOGGED_IN_KEY'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'NONCE_KEY'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'AUTH_SALT'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'SECURE_AUTH_SALT'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'LOGGED_IN_SALT'/s/put your unique phrase here/$(openssl rand -base64 40)/
-/'NONCE_SALT'/s/put your unique phrase here/$(openssl rand -base64 40)/" /var/www/html/wp-config-sample.php > /var/www/html/wp-config.php
+/'AUTH_KEY'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'SECURE_AUTH_KEY'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'LOGGED_IN_KEY'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'NONCE_KEY'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'AUTH_SALT'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'SECURE_AUTH_SALT'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'LOGGED_IN_SALT'/s/put your unique phrase here/`openssl rand -base64 40`/
+/'NONCE_SALT'/s/put your unique phrase here/`openssl rand -base64 40`/" /var/www/html/wp-config-sample.php > /var/www/html/wp-config.php
 }
 
 __handle_db_host() {

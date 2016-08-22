@@ -3,11 +3,12 @@ services:
   wordpress:
     image: centos:7
     expose:
-      - "9001"
-#   links:
-#     - db
+      - "80"
+ #  links:
+ #    - db
     user: 'root'
-    command: ['/bin/bash', '/scripts/start.sh']
+    entrypoint: '/scripts/start.sh'
+#   command: ['/bin/bash', '/scripts/start.sh']
  #db:
  #  image: centos/mariadb:latest
  #  user: 'root'

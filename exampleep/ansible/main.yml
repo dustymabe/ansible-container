@@ -1,0 +1,31 @@
+- hosts: wordpress
+  vars: 
+    dir: "{{ lookup('pipe','dirname `pwd`') }}/"
+  tasks:
+    - name: Update all rpms
+      yum: name=* state=latest
+    - name: Install deps
+      yum: name={{item}} state=latest
+      with_items:
+        - httpd
+        - php
+        - php-mysql
+        - php-gd
+        - openssl
+        - psmisc
+        - tar
+    - name: Create directory for scripts
+      file: path=/scripts state=directory mode=0755
+    - name: Copy startup scripts into container
+      copy: src={{dir}}/scripts/{{item}} dest=/scripts/{{item}} owner=root group=root mode=0755
+      with_items:
+        - start.sh
+        - run-apache.sh
+#   - name: Copy wordpress source into container
+#     unarchive:
+#       src: https://wordpress.org/latest.tar.gz 
+#       copy: no #use remote_src in 2.2+ 
+#       dest: /var/www/html 
+#       owner: apache
+#       group: apache
+#       creates: /var/www/html/wordpress

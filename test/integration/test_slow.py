@@ -130,7 +130,7 @@ def test_install_role_requirements():
     print result.stdout
     print "YYYYYYYYYYYYYYYYYYYYYYYYYYY\n"
     print result.stderr
-    assert "ansible-role-apache was installed successfully" in result.stderr
+    assert "ansible-role-apache was installed successfully" in result.stdout
 
 @pytest.mark.timeout(240)
 def test_setting_ansible_container_envar():
